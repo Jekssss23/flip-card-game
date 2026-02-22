@@ -1,76 +1,38 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flip Card Game Premium</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <title>Flip Card Game</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="header-yellow">
-        <h1>Flip Card Game</h1>
-        <p>Pick a level and start matching!</p>
+
+  <div id="menu" class="menu">
+    <h1>Flip Card Game</h1>
+    <p>Pick a level and start matching!</p>
+
+    <div class="level-container">
+      <div class="level-card">
+        <h3>Fruits</h3>
+        <button onclick="startGame('fruits')">Start Game</button>
+      </div>
+
+      <div class="level-card locked">
+        <h3>Animals 🔒</h3>
+      </div>
+
+      <div class="level-card locked">
+        <h3>Colors 🔒</h3>
+      </div>
     </div>
+  </div>
 
-    <div class="container">
-        <div id="lobby" class="level-selection">
-            <div class="level-card">
-                <div class="card-image-wrapper">
-                    <img src="public/apel.png" alt="Fruits">
-                </div>
-                <div class="level-info">
-                    <span class="badge">LEVEL 1</span>
-                    <h3>Fruits</h3>
-                    <p>Easy • 6 Pairs</p>
-                    <button class="start-game-btn" onclick="startGame('fruits')">Start Game</button>
-                </div>
-            </div>
+  <div id="game" class="game hidden">
+    <button class="back-btn" onclick="goToMenu()">⬅ Back</button>
+    <h2 id="levelTitle"></h2>
+    <div id="gameBoard" class="game-board"></div>
+  </div>
 
-            <div class="level-card locked">
-                <div class="card-image-wrapper">
-                    <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Animals">
-                    <div class="lock-overlay">🔒</div>
-                </div>
-                <div class="level-info">
-                    <span class="badge">LEVEL 1</span>
-                    <h3>Animals</h3>
-                    <p>Easy • 6 Pairs</p>
-                </div>
-            </div>
-
-            <div class="level-card locked">
-                <div class="card-image-wrapper">
-                    <img src="https://cdn-icons-png.flaticon.com/512/2970/2970785.png" alt="Colors">
-                    <div class="lock-overlay">🔒</div>
-                </div>
-                <div class="level-info">
-                    <span class="badge">LEVEL 1</span>
-                    <h3>Colors</h3>
-                    <p>Easy • 6 Pairs</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="game-screen" style="display: none;">
-            <div class="game-info">
-                <div class="info-box">Moves: <span id="moves">0</span></div>
-                <div class="info-box">Score: <span id="score">0</span></div>
-            </div>
-            <div class="game-board" id="game-board"></div>
-            <button class="back-btn" onclick="goToLobby()">← Back to Lobby</button>
-        </div>
-    </div>
-
-    <div id="win-message" class="win-modal">
-        <div class="win-content">
-            <h2>You Win! 🎉</h2>
-            <button onclick="goToLobby()">Play Again</button>
-        </div>
-    </div>
-
-    <audio id="match-sound" src="public/sounds/Matching.mp3"></audio>
-    <audio id="win-sound" src="public/sounds/Winner.mp3"></audio>
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
