@@ -1,12 +1,15 @@
+/* Import font modern */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 body {
-  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  background: radial-gradient(circle at top, #2575fc 0%, #6a11cb 100%);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -17,163 +20,166 @@ body {
 }
 
 .container {
-  max-width: 800px;
+  max-width: 500px; /* Ukuran container lebih ramping seperti referensi */
   width: 100%;
   text-align: center;
 }
 
 h1 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  font-size: 2.2rem;
+  margin-bottom: 25px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
+/* Panel info bergaya Glassmorphism */
 .game-info {
-  background-color: rgba(255, 255, 255, 0.2);
-  padding: 15px;
-  border-radius: 10px;
-  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  padding: 15px 25px;
+  border-radius: 20px;
+  margin-bottom: 25px;
   display: flex;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: space-between;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
-.score,
-.moves {
-  font-size: 1.2rem;
-  font-weight: bold;
+.score, .moves {
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
 .game-board {
   display: grid;
-  /* Membuat 4 kolom yang sama rata */
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  margin: 0 auto;
+  grid-template-columns: repeat(4, 1fr); /* 4 kolom rapi */
+  gap: 12px;
   perspective: 1000px;
 }
 
 .card {
-  height: 120px;
+  aspect-ratio: 1 / 1; /* Membuat kartu selalu kotak sempurna */
   position: relative;
   transform-style: preserve-3d;
-  transition: transform 0.6s;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Efek membal */
   cursor: pointer;
 }
 
-/* Class ini akan ditambahkan oleh script.js saat kartu diklik */
 .card.flipped {
   transform: rotateY(180deg);
 }
 
-.card-front,
-.card-back {
+.card-front, .card-back {
   position: absolute;
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  border-radius: 10px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
-/* Sisi depan kartu (yang berisi gambar buah) */
-.card-front {
+/* Sisi Belakang (Tampilan Awal) */
+.card-back {
   background: white;
+  color: #6a11cb;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.card-back::after {
+  content: "?";
+  opacity: 0.3;
+}
+
+/* Sisi Depan (Setelah Dibalik) */
+.card-front {
+  background: #fdfdfd;
   transform: rotateY(180deg);
-  padding: 10px;
+  padding: 8px;
   flex-direction: column;
 }
 
 .card-front img {
-  max-width: 70%;
-  max-height: 70%;
+  max-width: 75%;
+  max-height: 75%;
   object-fit: contain;
 }
 
-.card-front .card-text {
-  font-size: 0.9rem;
-  font-weight: bold;
-  color: #333;
-  margin-top: 5px;
+.card-text {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #444;
+  margin-top: 4px;
+  text-transform: uppercase;
 }
 
-/* Sisi belakang kartu (tampilan awal sebelum diklik) */
-.card-back {
-  background: linear-gradient(45deg, #a18cd1 0%, #fbc2eb 100%);
-  font-size: 2.5rem;
-  color: white;
-}
-
-/* Memberi tanda tanya atau logo pada belakang kartu */
-.card-back::after {
-  content: "?";
-  opacity: 0.5;
-}
-
+/* Tombol Kontrol */
 .controls {
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 button {
-  background-color: #ff6b6b;
-  color: white;
+  background: white;
+  color: #6a11cb;
   border: none;
-  padding: 12px 25px;
+  padding: 14px 40px;
   border-radius: 50px;
   font-size: 1rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 button:hover {
-  background-color: #ff8e8e;
-  transform: translateY(-2px);
+  transform: scale(1.05);
+  background: #f0f0f0;
 }
 
 /* Pesan Kemenangan */
 .win-message {
-  display: none; /* Akan diubah jadi 'flex' oleh JS saat menang */
+  display: none;
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(5px);
+  z-index: 100;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 100;
 }
 
 .win-content {
   background: white;
-  padding: 30px;
-  border-radius: 15px;
+  padding: 40px;
+  border-radius: 25px;
   text-align: center;
   color: #333;
-  max-width: 90%;
+  max-width: 320px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
 }
 
 .win-content h2 {
-  margin-bottom: 20px;
-  color: #6a11cb;
+  font-size: 2rem;
+  color: #2575fc;
+  margin-bottom: 10px;
 }
 
-/* Tampilan untuk HP */
-@media (max-width: 600px) {
+/* Penyesuaian HP */
+@media (max-width: 480px) {
   .game-board {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .card {
-    height: 100px;
+    gap: 8px;
   }
   
   h1 {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+  }
+
+  .win-content {
+    width: 85%;
   }
 }
