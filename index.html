@@ -1,47 +1,76 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Game Flip Card</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flip Card Game Premium</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="header-yellow">
+        <h1>Flip Card Game</h1>
+        <p>Pick a level and start matching!</p>
+    </div>
+
     <div class="container">
-      <h1>Game Flip Card</h1>
+        <div id="lobby" class="level-selection">
+            <div class="level-card">
+                <div class="card-image-wrapper">
+                    <img src="public/apel.png" alt="Fruits">
+                </div>
+                <div class="level-info">
+                    <span class="badge">LEVEL 1</span>
+                    <h3>Fruits</h3>
+                    <p>Easy • 6 Pairs</p>
+                    <button class="start-game-btn" onclick="startGame('fruits')">Start Game</button>
+                </div>
+            </div>
 
-      <div class="game-info">
-        <div class="score">Skor: <span id="score">0</span></div>
-        <div class="moves">Gerakan: <span id="moves">0</span></div>
-      </div>
+            <div class="level-card locked">
+                <div class="card-image-wrapper">
+                    <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Animals">
+                    <div class="lock-overlay">🔒</div>
+                </div>
+                <div class="level-info">
+                    <span class="badge">LEVEL 1</span>
+                    <h3>Animals</h3>
+                    <p>Easy • 6 Pairs</p>
+                </div>
+            </div>
 
-      <div class="game-board" id="game-board">
+            <div class="level-card locked">
+                <div class="card-image-wrapper">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2970/2970785.png" alt="Colors">
+                    <div class="lock-overlay">🔒</div>
+                </div>
+                <div class="level-info">
+                    <span class="badge">LEVEL 1</span>
+                    <h3>Colors</h3>
+                    <p>Easy • 6 Pairs</p>
+                </div>
+            </div>
         </div>
 
-      <div class="controls">
-        <button id="reset-btn">Mulai Ulang</button>
-      </div>
+        <div id="game-screen" style="display: none;">
+            <div class="game-info">
+                <div class="info-box">Moves: <span id="moves">0</span></div>
+                <div class="info-box">Score: <span id="score">0</span></div>
+            </div>
+            <div class="game-board" id="game-board"></div>
+            <button class="back-btn" onclick="goToLobby()">← Back to Lobby</button>
+        </div>
     </div>
 
-    <div class="win-message" id="win-message">
-      <div class="win-content">
-        <h2>Selamat! Anda Menang!</h2>
-        <p>Skor akhir: <span id="final-score">0</span></p>
-        <p>Jumlah gerakan: <span id="final-moves">0</span></p>
-        <button id="play-again">Main Lagi</button>
-      </div>
+    <div id="win-message" class="win-modal">
+        <div class="win-content">
+            <h2>You Win! 🎉</h2>
+            <button onclick="goToLobby()">Play Again</button>
+        </div>
     </div>
 
-    <audio id="match-sound" src="public/sounds/Matching.mp3" preload="auto"></audio>
-    <audio id="win-sound" src="public/sounds/Winner.mp3" preload="auto"></audio>
-
-    <audio id="apel-sound" src="public/sounds/Apple.mp3" preload="auto"></audio>
-    <audio id="pisang-sound" src="public/sounds/Banana.mp3" preload="auto"></audio>
-    <audio id="jeruk-sound" src="public/sounds/Orange.mp3" preload="auto"></audio>
-    <audio id="anggur-sound" src="public/sounds/Wine.mp3" preload="auto"></audio>
-    <audio id="semangka-sound" src="public/sounds/Watermelon.mp3" preload="auto"></audio>
-    <audio id="stroberi-sound" src="public/sounds/Strawberry.mp3" preload="auto"></audio>
-
+    <audio id="match-sound" src="public/sounds/Matching.mp3"></audio>
+    <audio id="win-sound" src="public/sounds/Winner.mp3"></audio>
     <script src="script.js"></script>
-  </body>
+</body>
 </html>
