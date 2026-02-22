@@ -1,10 +1,10 @@
 const fruits = [
-    { name: 'apel', img: 'public/apel.png' },
-    { name: 'pisang', img: 'public/pisang.png' },
-    { name: 'jeruk', img: 'public/jeruk.png' },
-    { name: 'anggur', img: 'public/anggur.png' },
-    { name: 'semangka', img: 'public/semangka.png' },
-    { name: 'stroberi', img: 'public/stroberi.png' }
+    { name: 'apple', img: 'apel.png' },
+    { name: 'banana', img: 'pisang.png' },
+    { name: 'orange', img: 'jeruk.png' },
+    { name: 'grape', img: 'anggur.png' },
+    { name: 'watermelon', img: 'semangka.png' },
+    { name: 'strawberry', img: 'stroberi.png' },
 ];
 
 let firstCard, secondCard;
@@ -72,3 +72,4 @@ function unflipCards() {
         lockBoard = false;
     }, 1000);
 }
+
