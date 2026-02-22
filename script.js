@@ -1,75 +1,89 @@
-const fruits = [
-    { name: 'apple', img: 'apel.png' },
-    { name: 'banana', img: 'pisang.png' },
-    { name: 'orange', img: 'jeruk.png' },
-    { name: 'grape', img: 'anggur.png' },
-    { name: 'watermelon', img: 'semangka.png' },
-    { name: 'strawberry', img: 'stroberi.png' },
-];
+const levels = {
+  fruits: ["🍎","🍌","🍇","🍉","🍓","🍒","🥝","🍍"]
+};
 
-let firstCard, secondCard;
+let firstCard = null;
+let secondCard = null;
 let lockBoard = false;
-let moves = 0;
+let matchedPairs = 0;
+let currentSymbols = [];
 
-function startGame(type) {
-    document.getElementById('lobby').style.display = 'none';
-    document.getElementById('game-screen').style.display = 'block';
-    setupBoard(fruits);
+function startGame(level) {
+  document.getElementById("menu").classList.add("hidden");
+  document.getElementById("game").classList.remove("hidden");
+
+  document.getElementById("levelTitle").innerText = level.toUpperCase();
+
+  const gameBoard = document.getElementById("gameBoard");
+  gameBoard.innerHTML = "";
+
+  currentSymbols = [...levels[level], ...levels[level]];
+  currentSymbols.sort(() => 0.5 - Math.random());
+
+  matchedPairs = 0;
+
+  currentSymbols.forEach(symbol => {
+    const card = document.createElement("div");
+    card.classList.add("card");
+    card.dataset.symbol = symbol;
+
+    card.innerHTML = `
+      <div class="front">?</div>
+      <div class="back">${symbol}</div>
+    `;
+
+    card.addEventListener("click", flipCard);
+    gameBoard.appendChild(card);
+  });
 }
 
-function goToLobby() {
-    location.reload(); // Cara paling simpel reset game
-}
+function flipCard() {
+  if (lockBoard) return;
+  if (this === firstCard) return;
 
-function setupBoard(data) {
-    const board = document.getElementById('game-board');
-    const deck = [...data, ...data].sort(() => Math.random() - 0.5);
-    
-    board.innerHTML = '';
-    deck.forEach(item => {
-        const card = document.createElement('div');
-        card.classList.add('card');
-        card.innerHTML = `
-            <div class="card-front"><img src="${item.img}"></div>
-            <div class="card-back"></div>
-        `;
-        card.addEventListener('click', () => flipCard(card, item.name));
-        board.appendChild(card);
-    });
-}
+  this.classList.add("flip");
 
-function flipCard(card, name) {
-    if (lockBoard || card === firstCard) return;
-    card.classList.add('flipped');
+  if (!firstCard) {
+    firstCard = this;
+    return;
+  }
 
-    if (!firstCard) {
-        firstCard = { card, name };
-        return;
-    }
-
-    secondCard = { card, name };
-    checkMatch();
+  secondCard = this;
+  checkMatch();
 }
 
 function checkMatch() {
-    moves++;
-    document.getElementById('moves').innerText = moves;
-    let isMatch = firstCard.name === secondCard.name;
-    isMatch ? disableCards() : unflipCards();
-}
+  const isMatch = firstCard.dataset.symbol === secondCard.dataset.symbol;
 
-function disableCards() {
-    document.getElementById('match-sound').play();
-    firstCard = null; secondCard = null;
-}
+  if (isMatch) {
+    firstCard.removeEventListener("click", flipCard);
+    secondCard.removeEventListener("click", flipCard);
+    matchedPairs++;
 
-function unflipCards() {
+    if (matchedPairs === currentSymbols.length / 2) {
+      setTimeout(() => {
+        alert("🎉 Level Complete!");
+        goToMenu();
+      }, 500);
+    }
+
+    resetBoard();
+  } else {
     lockBoard = true;
     setTimeout(() => {
-        firstCard.card.classList.remove('flipped');
-        secondCard.card.classList.remove('flipped');
-        firstCard = null; secondCard = null;
-        lockBoard = false;
-    }, 1000);
+      firstCard.classList.remove("flip");
+      secondCard.classList.remove("flip");
+      resetBoard();
+    }, 800);
+  }
 }
 
+function resetBoard() {
+  [firstCard, secondCard] = [null, null];
+  lockBoard = false;
+}
+
+function goToMenu() {
+  document.getElementById("menu").classList.remove("hidden");
+  document.getElementById("game").classList.add("hidden");
+}
